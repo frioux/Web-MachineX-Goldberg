@@ -2,29 +2,29 @@ package Web::MacineX::TraitFor::Resource::DBIC::Result;
 
 use Moo::Role;
 
-requires '_render_item';
+requires '_x_render_item';
 
-has _item => (
+has _x_item => (
    is => 'ro',
    required => 1,
    init_arg => 'item',
    handles => {
       delete_resource => 'delete',
-      _update_resource => 'update',
+      _x_update_resource => 'update',
    },
 );
 
-has _writable => (
+has _x_writable => (
    is => 'ro',
    init_arg => 'writable',
 );
 
-sub resource_exists { !! $_[0]->_item }
+sub resource_exists { !! $_[0]->_x_item }
 
 sub allowed_methods {
    [
       qw(GET HEAD),
-      $_[0]->_writable ? (qw(PUT DELETE)) : ()
+      $_[0]->_x_writable ? (qw(PUT DELETE)) : ()
    ]
 }
 
@@ -32,14 +32,14 @@ sub allowed_methods {
 
 __END__
 
-sub content_types_provided { [ {'application/json' => '_to_json'} ] }
-sub content_types_accepted { [ {'application/json' => '_from_json'} ] }
+sub content_types_provided { [ {'application/json' => '_x_to_json'} ] }
+sub content_types_accepted { [ {'application/json' => '_x_from_json'} ] }
 
-sub _to_json { $_[0]->_encode_json($_[0]->_render_item($_[0]->_item)) }
+sub _x_to_json { $_[0]->_x_encode_json($_[0]->_x_render_item($_[0]->_x_item)) }
 
-sub _from_json {
-   $_[0]->_update_resource(
-      $_[0]->_decode_json(
+sub _x_from_json {
+   $_[0]->_x_update_resource(
+      $_[0]->_x_decode_json(
          $_[0]->request->content
       )
    )
