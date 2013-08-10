@@ -6,7 +6,7 @@ use Module::Runtime 'use_module';
 
 has _x_json_encoder => (
    is => 'lazy',
-   builder => sub { use_module('JSON')->new->convert_blessed->utf8 }
+   builder => sub { use_module('JSON')->new->convert_blessed->utf8 },
    handles => {
       _x_encode_json => 'encode',
       _x_decode_json => 'decode',
