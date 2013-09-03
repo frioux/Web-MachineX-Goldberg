@@ -1,13 +1,13 @@
-package Web::MacineX::TraitFor::Resource::DBIC::Result;
+package Web::MachineX::TraitFor::Resource::DBIC::Result;
 
 use Moo::Role;
 
 requires '_x_render_item';
 
-has _x_item => (
+has _x_result => (
    is => 'ro',
    required => 1,
-   init_arg => 'item',
+   init_arg => 'result',
    handles => {
       delete_resource => 'delete',
       _x_update_resource => 'update',
@@ -19,7 +19,7 @@ has _x_writable => (
    init_arg => 'writable',
 );
 
-sub resource_exists { !! $_[0]->_x_item }
+sub resource_exists { !! $_[0]->_x_result }
 
 sub allowed_methods {
    [

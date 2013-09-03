@@ -46,8 +46,9 @@ sub post_is_create { 1 }
 sub create_path { "worthless" }
 
 sub _x_render_resultset {
+   my @data = $_[0]->_x_all_results;
    return +{
-      data => [ map $_[0]->_x_render_item($_), $_[0]->_x_all_results ],
+      data => [ map $_[0]->_x_render_item($_), @data ],
       total => scalar @data,
    },
 }
